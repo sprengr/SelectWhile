@@ -1,0 +1,2 @@
+# SelectWhile
+Linq SelectWhile operator
