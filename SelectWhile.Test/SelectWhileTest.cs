@@ -29,6 +29,22 @@ namespace SelectWhile.Test
         }
 
         [Test]
+        public void TestConditionOnSourceIncludeLast()
+        {
+            var animals = new[]
+            {
+                new Animal{Type = "Cat"}, 
+                new Animal{Type = "Dog"}, 
+                new Animal{Type = "Unicorn", IsExtinct = true},
+                new Animal{Type = "T-Rex", IsExtinct = true}
+            };
+            var existingAnimals = animals.SelectWhile(a => !a.IsExtinct,
+                                                      a => a.Type,
+                                                      SelectMode.IncludeLast);
+            existingAnimals.ShouldContainAllInOrder(new[] { "Cat", "Dog", "Unicorn" });
+        }
+
+        [Test]
         public void TestConditionOnResult()
         {
             var animals = new[]
@@ -40,6 +56,22 @@ namespace SelectWhile.Test
             var existingAnimals = animals.SelectWhile(a => a.Type, 
                                                       a => a.Length == 3);
             existingAnimals.ShouldContainAllInOrder(new[] { "Cat", "Dog" });
+        }
+
+        [Test]
+        public void TestConditionOnResultIncludeLast()
+        {
+            var animals = new[]
+            {
+                new Animal{Type = "Cat"}, 
+                new Animal{Type = "Dog"}, 
+                new Animal{Type = "Unicorn", IsExtinct = true},
+                new Animal{Type = "T-Rex", IsExtinct = true}
+            };
+            var existingAnimals = animals.SelectWhile(a => a.Type,
+                                                      a => a.Length == 3,
+                                                      SelectMode.IncludeLast);
+            existingAnimals.ShouldContainAllInOrder(new[] { "Cat", "Dog", "Unicorn" });
         }
     }
 }

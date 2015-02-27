@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SelectWhile</id>
+    <version>0.2.0</version>
+    <title>SelectWhile</title>
+    <authors>Sebastian Sprenger</authors>
+    <owners>Sebastian Sprenger</owners>
+    <licenseUrl>https://github.com/sprengr/SelectWhile/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/sprengr/SelectWhile/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>LINQ method for a select with a condition</description>
+    <releaseNotes>inital Version</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>LINQ Select While SelectWhile</tags>
+  </metadata>
+</package>

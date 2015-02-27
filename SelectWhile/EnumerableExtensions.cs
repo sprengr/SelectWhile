@@ -5,23 +5,30 @@ using System.Text;
 
 namespace SelectWhile
 {
+    public enum SelectMode
+    {
+        IncludeLast,
+        ExcludeLast
+    }
+
     public static class EnumerableExtensions
     {
-        public static IEnumerable<TResult> SelectWhile<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, bool> condition, Func<TSource, TResult> selector)
+        public static IEnumerable<TResult> SelectWhile<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, bool> condition, Func<TSource, TResult> selector, SelectMode selectMode = SelectMode.ExcludeLast)
         {
             IList<TResult> results = new List<TResult>();
 
             foreach (var item in source)
             {
                 var @continue = condition(item);
-                if (!@continue) break;
+                if (selectMode == SelectMode.ExcludeLast && !@continue) break;
                 var result = selector(item);
                 results.Add(result);
+                if (selectMode == SelectMode.IncludeLast && !@continue) break;
             }
             return results;
         }
 
-        public static IEnumerable<TResult> SelectWhile<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector, Func<TResult, bool> condition)
+        public static IEnumerable<TResult> SelectWhile<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector, Func<TResult, bool> condition, SelectMode selectMode = SelectMode.ExcludeLast)
         {
             IList<TResult> results = new List<TResult>();
 
@@ -29,8 +36,9 @@ namespace SelectWhile
             {
                 var result = selector(item);
                 var @continue = condition(result);
-                if (!@continue) break;
+                if (selectMode == SelectMode.ExcludeLast && !@continue) break;
                 results.Add(result);
+                if (selectMode == SelectMode.IncludeLast && !@continue) break;
             }
             return results;
         }
